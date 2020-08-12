@@ -161,3 +161,29 @@
 2020-08-12 19:35:49 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
 2020-08-12 19:36:49 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
 2020-08-12 19:37:49 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:38:49 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:39:49 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:40:49 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:41:49 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:42:01 INFO  PluginTasksProjectComponent.projectClosing(200) - ---------- Project closed ----------
+
+2020-08-12 19:42:01 INFO  ApacheHttpClient.getTask(482) - responseCode = 200
+2020-08-12 19:42:07 INFO  PluginTasksProjectComponent.projectOpened(89) - ---------- Project opened ----------
+2020-08-12 19:42:07 INFO  PluginTasksProjectComponent.projectOpened(90) - ---------- Version 3.40 ----------
+
+2020-08-12 19:42:07 INFO  ApacheHttpClient.createAsyncHttpClient(145) - 1 proxies selected. Type: DIRECT
+2020-08-12 19:42:07 INFO  ApacheHttpClient.<init>(96) - ApacheHttpClient was successfully instantiated.
+2020-08-12 19:42:08 INFO  ApacheHttpClient.testConnection(204) - responseCode = 200
+2020-08-12 19:42:08 INFO  ApacheHttpClient.testConnection(219) - result = true
+2020-08-12 19:42:08 INFO  ApacheHttpClient.isSessionAppropriateWithSecretKey(596) - Waiting for server response.
+2020-08-12 19:42:08 INFO  ApacheHttpClient.isSessionAppropriateWithSecretKey(596) - Waiting for server response.
+2020-08-12 19:42:08 INFO  ApacheHttpClient.isSessionAppropriateWithSecretKey(596) - Waiting for server response.
+2020-08-12 19:42:09 INFO  ApacheHttpClient.refreshUserInfo(304) - responseCode = 200
+2020-08-12 19:42:09 INFO  ApacheHttpClient.refreshUserInfo(310) - User information received.
+2020-08-12 19:42:09 INFO  ApacheHttpClient.startGA(35) - GAService started.
+2020-08-12 19:42:09 INFO  AbstractRestApiClient.startService(71) - EventsService started.
+2020-08-12 19:43:09 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:44:09 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:45:09 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:46:09 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
+2020-08-12 19:47:09 INFO  ApacheHttpClient.sendEvent(529) - responseCode = 200
