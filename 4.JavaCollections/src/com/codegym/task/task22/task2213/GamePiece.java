@@ -101,7 +101,7 @@ public class GamePiece {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (matrix[i][j] == 1) {
+                if (matrix[i][j] == 1) {   // ak je x = -1, tak vlastne prvy stlpec su nuly a tu to hned hodi false
                     if (y + i >= field.getHeight())
                         return false;
 
