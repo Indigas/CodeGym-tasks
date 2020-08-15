@@ -77,7 +77,7 @@ public class Tetris {
     }
 
     public void step() {
-        // Drop the game piece lower
+        // Drop the game piece down
         gamePiece.down();
 
         // If the game piece can't be placed in the current location
