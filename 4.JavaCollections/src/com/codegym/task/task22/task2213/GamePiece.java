@@ -50,11 +50,13 @@ public class GamePiece {
     boolean isCurrentPositionAvailable(int[][] fieldMatrix){
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++) {
-                if (fieldMatrix[y + i][x + j] == 1 &&
-                        matrix[i][j] == 1) {
-                    //up();
-                    return false;
-                }
+                if(matrix[i][j]==1)
+                    if(y+i < fieldMatrix.length) {
+                        if (fieldMatrix[y + i][x + j] == 1) {
+                            return false;
+                        }
+                    } else
+                        return false;
             }
 
         return true;

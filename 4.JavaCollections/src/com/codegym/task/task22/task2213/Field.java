@@ -18,7 +18,7 @@ public class Field {
         this.width = width;
         this.height = height;
         matrix = new int[height][width];
-        Arrays.fill(matrix[height-1], 1);
+
     }
 
     public int getWidth() {
