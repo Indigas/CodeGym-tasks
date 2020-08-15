@@ -7,7 +7,7 @@ public class GamePiece {
 
     public GamePiece(int x, int y, int[][] matrix) {
         this.x = x;
-        this.y = y;
+        this.y = y-1;
         this.matrix = matrix;
     }
 
@@ -52,6 +52,8 @@ public class GamePiece {
     }
 
     void land(){
+        // field.matrix sa neupdatuje vo fielde - update tu ak je land
+        // matrix reprezentuje uz to co je pevne a nemenne
 
     }
 }

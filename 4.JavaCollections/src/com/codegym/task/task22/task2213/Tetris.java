@@ -86,9 +86,12 @@ public class Tetris {
         // Put it back
        // gamePiece.up();
         // Land it
+        int abc = field.getValue(gamePiece.getX()+1, gamePiece.getY());
+        System.out.println(abc);
         //gamePiece.land();
         // If the game piece lands at the very top, then the game is over
         // Remove the completed lines
+        //field.removeFullLines();
         // Create a new game piece
 
     }
