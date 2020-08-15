@@ -83,16 +83,21 @@ public class Tetris {
         gamePiece.down();
 
         // If the game piece can't be placed in the current location:
-        // Put it back
-       // gamePiece.up();
-        // Land it
-        int abc = field.getValue(gamePiece.getX()+1, gamePiece.getY());
-        System.out.println(abc);
-        //gamePiece.land();
-        // If the game piece lands at the very top, then the game is over
-        // Remove the completed lines
-        //field.removeFullLines();
-        // Create a new game piece
+        if(!gamePiece.isCurrentPositionAvailable(field.getMatrix())) {
+            // Put it back
+            gamePiece.up();
+            // Land it
+            gamePiece.land(field);
+            // Remove the completed lines
+            field.removeFullLines();
+
+            // If the game piece lands at the very top, then the game is over
+            if(gamePiece.getY()==0)
+                isGameOver=true;
+            else  // Create a new game piece
+                gamePiece = GamePieceFactory.createRandomGamePiece(field.getWidth()/2, 0);
+        }
+
 
     }
 
