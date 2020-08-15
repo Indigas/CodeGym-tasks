@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
  * The Tetris class contains the basic functionality of the game.
  */
 public class Tetris {
+
     private Field field;                // Game field
     private GamePiece gamePiece;              // Game piece
 
@@ -68,37 +69,28 @@ public class Tetris {
 
             step();             // Take a step
             field.print();      // Display the field
-            Thread.sleep(300);  // Pause for 300 milliseconds (about 1/3 of a second)
+            Thread.sleep(300);  // Pause 300 milliseconds (about 1/3 of a second)
         }
 
         // Display "Game Over"
         System.out.println("Game Over");
     }
 
-    /**
-     * One step of the game
-     */
     public void step() {
         // Drop the game piece lower
         gamePiece.down();
 
-        // If the game piece can't be placed in the current location:
-        if(!gamePiece.isCurrentPositionAvailable(field.getMatrix())) {
-            // Put it back
-            gamePiece.up();
-            // Land it
-            gamePiece.land(field);
-            // Remove the completed lines
-            field.removeFullLines();
+        // If the game piece can't be placed in the current location
+        if (!gamePiece.isCurrentPositionAvailable()) {
+            gamePiece.up();                    // Put it back
+            gamePiece.land();                // Land it
 
-            // If the game piece lands at the very top, then the game is over
-            if(gamePiece.getY()==0)
-                isGameOver=true;
-            else  // Create a new game piece
-                gamePiece = GamePieceFactory.createRandomGamePiece(field.getWidth()/2, 0);
+            isGameOver = gamePiece.getY () <= 1; // If the game piece lands at the very top, then the game is over
+
+            field.removeFullLines();        // Remove the completed lines
+
+            gamePiece = GamePieceFactory.createRandomGamePiece(field.getWidth()/2, 0); // Create a new game piece
         }
-
-
     }
 
     /**
