@@ -11,7 +11,17 @@ public class Solution {
     }
 
     public void recurse(final String expression, int countOperation) {
+        //https://stackoverflow.com/questions/3422673/how-to-evaluate-a-math-expression-given-in-string-form
+
         // Implement
+        String first = expression.substring(expression.lastIndexOf("(")+1, expression.indexOf(")",
+                expression.lastIndexOf("(")));
+
+        System.out.println(first);
+
+        String vysledok = "5";
+
+        recurse(expression.replace("("+first+")", vysledok),0);
     }
 
     public Solution() {
