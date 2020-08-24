@@ -4,14 +4,28 @@ public abstract class BaseObject {
     private double x, y, radius;
     private boolean isAlive;
 
-  /*  abstract void move();
-    abstract void draw();*/
+    public void move(){};
+    public void draw(){};
 
     public BaseObject(double x, double y, double radius) {
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.isAlive = true;
+    }
+
+    public void die(){
+        isAlive=false;
+    }
+
+    public boolean intersects(BaseObject o){
+        double distX = this.x - o.getX();
+        double distY = this.y - o.getY();
+        double dist = Math.abs(distX) + Math.abs(distY);
+        if(dist < Math.max(this.radius, o.getRadius()))
+            return true;
+
+        return false;
     }
 
     public boolean isAlive() {
