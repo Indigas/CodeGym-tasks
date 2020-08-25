@@ -1,4 +1,23 @@
-taskKey="com.codegym.task.task25.task2515.big16"\n\nSpace (part 16)
+taskKey="com.codegym.task.task25.task2515.big18"\n\nSpace (part 18)
+
+
+Make width and height bigger and you can play!
+Enjoy the game :)
+
+
+Requirements:
+1.	Relax and enjoy.
+
+
+Space (part 17)
+
+
+We need to finish the draw() method.
+We'll do something similar with the move method. I'll write it myself today.
+
+
+
+Space (part 16)
 
 
 And a little bit more:
@@ -19,12 +38,6 @@ A rocket also dies if it moves beyond the limits of the screen (y < 0).
 Implement the removeDead() method:
 This method should remove all dead objects (isAlive() == false) from the ufos, rockets, and bombs lists.
 
-
-Requirements:
-1.	In the Space class, implement the createUfo() method as described in the task conditions.
-2.	In the Space class, implement the checkBombs() method as described in the task conditions.
-3.	In the Space class, implement the checkRockets() method as described in the task conditions.
-4.	In the Space class, implement the removeDead() method as described in the task conditions.
 
 
 Space (part 15)
@@ -89,39 +102,6 @@ c) add these rockets to the list of rockets in the game object.
 
 You can get it as follows:
 Space.game.getRockets()
-
-
-
-Space (part 12)
-
-
-Now let's do the ship.
-For complexity, we'll do this: if the user presses the left button, the ship will start moving to the left and continue to do so.
-If the user presses the right button, it will start moving to the right and continue to do so until it hits the edge.
-Accordingly, we'll create a special dx variable that will store the direction of the ship's movement.
-if dx = 1, then the ship moves 1 to the right with each step,
-if dx = -1, then the ship moves 1 to the left with each each step.
-Here's what we need:
-a) add a constructor as follows:
-The ship's radius is equal to 3. The ship is large — it's no rocket or bomb.
-public Spaceship(double x, double y)
-{
-super(x, y, 3);
-}
-b) add a double dx variable to the Spaceship class (the default value is 0);
-c) the moveLeft() method, which sets dx equal to -1;
-d) the moveRight() method, which sets dx equal to 1.
-
-
-
-Space (part 11)
-
-
-Now we'll write the Rocket class.
-It's almost the same as the Bomb class.
-But:
-a) Rockets fly upward (i.e. y is decreased by 1);
-b) We'll draw 'R' instead of 'B'.
 
 
 

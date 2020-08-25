@@ -3,7 +3,6 @@ package com.codegym.task.task25.task2515;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The game's main class is Space
@@ -85,9 +84,8 @@ public class Space {
      * Move all of the objects in the game
      */
     public void moveAllItems() {
-        // Get a list of all objects in the game and call the move() method on each of them.
-        for(BaseObject bo : getAllItems()){
-            bo.move();
+        for (BaseObject object : getAllItems()) {
+            object.move();
         }
     }
 
@@ -95,25 +93,25 @@ public class Space {
      * The method returns a single list that contains all objects in the game
      */
     public List<BaseObject> getAllItems() {
-        // You need to create a new list and put all the game objects into it.
-        List<BaseObject> allOfItems = new ArrayList<>();
-        allOfItems.add(ship);
-        allOfItems.addAll(ufos);
-        allOfItems.addAll(bombs);
-        allOfItems.addAll(rockets);
-
-
-        return allOfItems;
+        ArrayList<BaseObject> list = new ArrayList<BaseObject>(ufos);
+        list.add(ship);
+        list.addAll(bombs);
+        list.addAll(rockets);
+        return list;
     }
 
     /**
      * Create a new UFO. Once in every 10 calls.
      */
     public void createUfo() {
-        // You need to create a new UFO.
-        // Once in every 10 calls.
-        if(ufos.isEmpty())
-            ufos.add(new Ufo(width/2d, height/2d));
+        if (ufos.size() > 0) return;
+
+        int random10 = (int) (Math.random() * 10);
+        if (random10 == 0) {
+            double x = Math.random() * width;
+            double y = Math.random() * height / 2;
+            ufos.add(new Ufo(x, y));
+        }
     }
 
     /**
@@ -122,15 +120,14 @@ public class Space {
      * b) movement beyond the bottom of the game field (the bomb dies)
      */
     public void checkBombs() {
-        // Here you need to check all possible collisions for each bomb.
-        for(Bomb bo : bombs) {
-            if (ship.intersects(bo)) {
+        for (Bomb bomb : bombs) {
+            if (ship.intersects(bomb)) {
                 ship.die();
-                bo.die();
+                bomb.die();
             }
 
-            if(bo.getY() > height)
-                bo.die();
+            if (bomb.getY() >= height)
+                bomb.die();
         }
     }
 
@@ -140,30 +137,37 @@ public class Space {
      * b) movement beyond the top of the playing field (the rocket dies)
      */
     public void checkRockets() {
-        // Here you need to check all possible collisions for each rocket.
-        for(Rocket ro : rockets){
-            for(Ufo ufo : ufos){
-                if(ufo.intersects(ro)){
+        for (Rocket rocket : rockets) {
+            for (Ufo ufo : ufos) {
+                if (ufo.intersects(rocket)) {
                     ufo.die();
-                    ro.die();
+                    rocket.die();
                 }
             }
 
-            if(ro.getY() < 0)
-                ro.die();
+            if (rocket.getY() <= 0)
+                rocket.die();
         }
     }
 
     /**
      * Remove dead objects (bombs, rockets, ufos) from the lists
      */
-    public List<BaseObject> listOf = new ArrayList<>();
     public void removeDead() {
-        // Here you need to remove all dead objects from the lists.
-        // Except the spaceship — we use it to determine whether the game is still going.
-        ufos = ufos.stream().filter(BaseObject::isAlive).collect(Collectors.toList());
-        rockets = rockets.stream().filter(BaseObject::isAlive).collect(Collectors.toList());
-        bombs = bombs.stream().filter(BaseObject::isAlive).collect(Collectors.toList());
+        for (BaseObject object : new ArrayList<BaseObject>(bombs)) {
+            if (!object.isAlive())
+                bombs.remove(object);
+        }
+
+        for (BaseObject object : new ArrayList<BaseObject>(rockets)) {
+            if (!object.isAlive())
+                rockets.remove(object);
+        }
+
+        for (BaseObject object : new ArrayList<BaseObject>(ufos)) {
+            if (!object.isAlive())
+                ufos.remove(object);
+        }
     }
 
     /**
@@ -172,7 +176,26 @@ public class Space {
      * b) draw all the objects on the canvas.
      */
     public void draw(Canvas canvas) {
-        // Here you need to draw all game objects
+        // Draw the game
+        for (int i = 0; i < width + 2; i++) {
+            for (int j = 0; j < height + 2; j++) {
+                canvas.setPoint(i, j, '.');
+            }
+        }
+
+        for (int i = 0; i < width + 2; i++) {
+            canvas.setPoint(i, 0, '-');
+            canvas.setPoint(i, height + 1, '-');
+        }
+
+        for (int i = 0; i < height + 2; i++) {
+            canvas.setPoint(0, i, '|');
+            canvas.setPoint(width + 1, i, '|');
+        }
+
+        for (BaseObject object : getAllItems()) {
+            object.draw(canvas);
+        }
     }
 
 
