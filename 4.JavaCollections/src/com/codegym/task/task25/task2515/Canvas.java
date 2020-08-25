@@ -1,5 +1,7 @@
 package com.codegym.task.task25.task2515;
 
+import java.util.Arrays;
+
 public class Canvas {
     private int width, height;
     private char[][] matrix;
@@ -33,5 +35,21 @@ public class Canvas {
                 if(matrix[i][j] != 0)
                     setPoint(x+j, y+i, c);
             }
+    }
+
+    public void clear(){
+        for (char[] chars : matrix)
+            Arrays.fill(chars, ' ');
+    }
+
+    public void print(){
+        for (char[] c : matrix) {
+            for (char d : c)
+                System.out.print(d);
+
+            System.out.println();
+            System.out.println();
+            System.out.println();
+        }
     }
 }
