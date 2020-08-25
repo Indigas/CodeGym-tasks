@@ -3,6 +3,7 @@ package com.codegym.task.task25.task2515;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The game's main class is Space
@@ -111,6 +112,8 @@ public class Space {
     public void createUfo() {
         // You need to create a new UFO.
         // Once in every 10 calls.
+        if(ufos.isEmpty())
+            ufos.add(new Ufo(width/2d, height/2d));
     }
 
     /**
@@ -120,6 +123,15 @@ public class Space {
      */
     public void checkBombs() {
         // Here you need to check all possible collisions for each bomb.
+        for(Bomb bo : bombs) {
+            if (ship.intersects(bo)) {
+                ship.die();
+                bo.die();
+            }
+
+            if(bo.getY() > height)
+                bo.die();
+        }
     }
 
     /**
@@ -129,14 +141,29 @@ public class Space {
      */
     public void checkRockets() {
         // Here you need to check all possible collisions for each rocket.
+        for(Rocket ro : rockets){
+            for(Ufo ufo : ufos){
+                if(ufo.intersects(ro)){
+                    ufo.die();
+                    ro.die();
+                }
+            }
+
+            if(ro.getY() < 0)
+                ro.die();
+        }
     }
 
     /**
      * Remove dead objects (bombs, rockets, ufos) from the lists
      */
+    public List<BaseObject> listOf = new ArrayList<>();
     public void removeDead() {
         // Here you need to remove all dead objects from the lists.
         // Except the spaceship — we use it to determine whether the game is still going.
+        ufos = ufos.stream().filter(BaseObject::isAlive).collect(Collectors.toList());
+        rockets = rockets.stream().filter(BaseObject::isAlive).collect(Collectors.toList());
+        bombs = bombs.stream().filter(BaseObject::isAlive).collect(Collectors.toList());
     }
 
     /**
