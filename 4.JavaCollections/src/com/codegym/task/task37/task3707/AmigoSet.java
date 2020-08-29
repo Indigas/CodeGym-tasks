@@ -1,12 +1,23 @@
 package com.codegym.task.task37.task3707;
 
 import java.io.Serializable;
-import java.util.AbstractSet;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneable, Set<T> {
+
+    private static final Object PRESENT = new Object();
+    private transient HashMap<T, Object> map;
+
+    public AmigoSet() {
+        this.map = new HashMap<>();
+    }
+
+    public AmigoSet(Collection<? extends T > collection){
+        this.map = new HashMap<>(Math.max(16,(int)Math.ceil(collection.size()/0.75f)));
+
+        collection.forEach(object -> this.map.put(object, PRESENT));
+    }
+
     @Override
     public Iterator<T> iterator() {
         return null;
@@ -17,7 +28,7 @@ public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneab
         return 0;
     }
 
-
+    
 
     @Override
     public Object[] toArray(Object[] a) {
@@ -26,7 +37,10 @@ public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneab
 
     @Override
     public boolean add(Object o) {
-        return false;
+       if(this.map.put((T)o, PRESENT) == null)
+           return true;
+
+       return false;
     }
 
     @Override
