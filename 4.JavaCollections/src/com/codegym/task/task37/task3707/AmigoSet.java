@@ -20,15 +20,18 @@ public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneab
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return map.keySet().iterator();
     }
 
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
 
-    
+    @Override
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
 
     @Override
     public Object[] toArray(Object[] a) {
@@ -46,5 +49,20 @@ public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneab
     @Override
     public boolean addAll(Collection c) {
         return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return map.containsKey(o);
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return map.remove(o) != null;
     }
 }
