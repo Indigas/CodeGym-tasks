@@ -1,5 +1,8 @@
 package com.codegym.task.task37.task3707;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -7,6 +10,9 @@ public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneab
 
     private static final Object PRESENT = new Object();
     private transient HashMap<T, Object> map;
+    private int mapCapacity;
+    private float loadFactor;
+    private Set<T> forSerial;
 
     public AmigoSet() {
         this.map = new HashMap<>();
@@ -69,7 +75,7 @@ public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneab
     @Override
     public Object clone() throws CloneNotSupportedException {
         Object o;
-
+        
         try {
              o = super.clone();
             //((AmigoSet<T>) o).map = (HashMap<T, Object>)map.clone();
@@ -79,5 +85,40 @@ public class AmigoSet<T> extends AbstractSet<T> implements Serializable, Cloneab
         }
 
         return o;
+    }
+
+    private void writeObject(ObjectOutputStream oos){
+        forSerial = new HashSet<>();
+        forSerial.addAll(map.keySet());
+        try {
+            loadFactor = HashMapReflectionHelper.callHiddenMethod(map, "loadFactor");
+            mapCapacity = HashMapReflectionHelper.callHiddenMethod(map, "capacity");
+        } catch (Exception e){}
+
+        try {
+            oos.defaultWriteObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readObject(ObjectInputStream ois){
+        try {
+            ois.defaultReadObject();
+
+            map = new HashMap<>(mapCapacity, loadFactor);
+
+            forSerial.forEach(key -> map.put(key, PRESENT));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 }
