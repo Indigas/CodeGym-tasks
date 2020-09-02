@@ -1,13 +1,20 @@
 package com.codegym.task.task37.task3702;
 
-import com.codegym.task.task37.task3702.male.MaleFactory;
-
 public class Solution {
-    public static void main(String[] args){
-        MaleFactory mf = new MaleFactory();
+    public static void main(String[] args) {
+        AbstractFactory factory = FactoryProducer.getFactory(FactoryProducer.HumanFactoryType.FEMALE);
+        useFactory(factory);
 
-        System.out.println(mf.getPerson(99));
-        System.out.println(mf.getPerson(4));
-        System.out.println(mf.getPerson(15));
+        factory = FactoryProducer.getFactory(FactoryProducer.HumanFactoryType.MALE);
+        useFactory(factory);
+
+        //System.out.println(FactoryProducer.createHuman(FactoryProducer.HumanFactoryType.MALE, 99));
     }
+
+    public static void useFactory(AbstractFactory factory) {
+        System.out.println(factory.getPerson(99));
+        System.out.println(factory.getPerson(4));
+        System.out.println(factory.getPerson(15));
+    }
+
 }
