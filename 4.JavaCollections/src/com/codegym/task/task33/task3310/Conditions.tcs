@@ -1,0 +1,61 @@
+taskKey="com.codegym.task.task33.task3310.big02"\n\nShortener (part 2)
+
+
+Shortener will support various data storage strategies
+(for strings and string identifiers). All these strategies will be inherited from the
+StorageStrategy interface. Read more about the Strategy pattern on Wikipedia.
+Our repository will rely on two concepts: key and value. The string identifier will be
+the key, while the string itself will be the value.
+
+2.1.	Add the StorageStrategy interface to the strategy package.
+2.2.	Add the following methods to the interface:
+2.2.1. boolean containsKey(Long key) - Returns true if the repository
+contains the passed key.
+2.2.2. boolean containsValue(String value) - Returns true if the repository
+contains the passed value.
+2.2.3. void put(Long key, String value) - Adds a new key-value pair to the
+repository.
+2.2.4.	Long getKey(String value) - Returns the key for the passed value.
+2.2.5.	String getValue(Long key) - Return the value for the passed key.
+
+
+Requirements:
+1.	A boolean containsKey(Long key) method must be declared in the StorageStrategy interface.
+2.	A boolean containsValue(String value) method must be declared in the StorageStrategy interface.
+3.	A void put(Long key, String value) method must be declared in the StorageStrategy interface.
+4.	A Long getKey(String value) method must be declared in the StorageStrategy interface.
+5.	A boolean String getValue(Long key) method must be declared in the StorageStrategy interface.
+6.	The StorageStrategy interface must be created in the strategy package.
+
+
+Shortener (part 1)
+
+
+Let's write a Shortener. It will be similar to
+Google URL Shortener (https://goo.gl), but we'll extend its functionality and
+make it console-based. It will shorten not only links, but also any string.
+Our Shortener class will return a unique identifier
+for any string, and vice versa — it will return a string based on a previously
+obtained identifier.
+
+Two additional requirements for Shortener:
+- for two identical strings, the same identifier should be returned;
+- it must support as many strings as there are unique long values:
+the identifiers will be longs.
+The first requirement greatly affects performance, because upon receiving
+the identifier for a new string, we need to check whether we processed the
+string previously in order to return the old identifier.
+
+1.1.	Declare a Shortener class.
+1.2.	Add stub methods to the declared class:
+1.2.1.	Long getId(String string) – Returns the id for the specified
+string.
+1.2.2.	String getString(Long id) – Returns a string for the specified
+id or null if an invalid id is passed.
+
+1.3.    Create a Solution class with an empty main method.
+
+P.S. Make all methods public and fields private if there are no explicit instructions regarding access modifiers.
+
+
+
