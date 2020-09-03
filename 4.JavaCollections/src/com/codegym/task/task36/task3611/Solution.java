@@ -1,7 +1,6 @@
 package com.codegym.task.task36.task3611;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /* 
 How many potential friends does a person have?
@@ -23,7 +22,29 @@ public class Solution {
 
     public Set<Integer> getAllFriendsAndPotentialFriends(int index, int deep) {
         //write your code here
-        return new HashSet<>();
+        Set<Integer> listOfFriends=new TreeSet<>();
+
+        if(deep == 0)
+            return listOfFriends;
+
+        for (int a = 0; a < humanRelationships.length; a++) {
+            if (a < index) {   // pozeraju sa koho ma v priateloch
+                if (humanRelationships[index][a]) {
+                    listOfFriends.add(a);
+                    listOfFriends.addAll(getAllFriendsAndPotentialFriends(a, deep - 1));
+                }
+            } else {   // pozeraju kto ma ma v priateloch
+                if (humanRelationships[a][index]) {
+                    listOfFriends.add(a);
+                    listOfFriends.addAll(getAllFriendsAndPotentialFriends(a, deep - 1));
+                }
+            }
+
+        }
+
+
+        listOfFriends.remove(index);
+        return listOfFriends;
     }
 
     // Remove from the set the people with whom you already have a relationship
