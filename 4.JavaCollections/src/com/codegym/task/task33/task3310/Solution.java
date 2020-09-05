@@ -1,6 +1,7 @@
 package com.codegym.task.task33.task3310;
 
 import com.codegym.task.task33.task3310.strategy.HashMapStorageStrategy;
+import com.codegym.task.task33.task3310.strategy.OurHashMapStorageStrategy;
 import com.codegym.task.task33.task3310.strategy.StorageStrategy;
 
 import java.util.Date;
@@ -48,6 +49,7 @@ public class Solution {
 
         System.out.println("Method getStrings time run: " + inMs);
 
+
         if(test.containsAll(testStrings) && testStrings.containsAll(test))
             System.out.println("The test passed.");
         else
@@ -56,6 +58,7 @@ public class Solution {
 
     public static void main(String[] args) {
         testStrategy(new HashMapStorageStrategy(), 10000L);
+        testStrategy(new OurHashMapStorageStrategy(), 10000L);
 
     }
 }

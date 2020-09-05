@@ -1,4 +1,72 @@
-taskKey="com.codegym.task.task33.task3310.big07"\n\nShortener (7)
+taskKey="com.codegym.task.task33.task3310.big09"\n\nShortener (9)
+
+
+Let's write another strategy. We'll call it FileStorageStrategy. It will be very similar
+to OurHashMapStorageStrategy, but files will be
+the buckets. I'm sure you know what I mean by buckets. If not, copy the internal workings
+of HashMap.
+9.1.	Create a FileBucket class in the strategy package.
+9.2.	Add a Path path field to the class. This will be the path to the file.
+9.3.	Add a no-argument constructor to the class. It should:
+9.3.1.	Initialize the path field with a temporary file. The file must be placed
+in the directory for temporary files and have a random name. Hint:
+Files.createTempFile.
+9.3.2.	Use the path field to create a new file. If the file already exists, then
+replace it.
+9.3.3.	Ensure the file is deleted when you exit the program. Hint:
+deleteOnExit().
+9.4.	Add the following methods to the class:
+9.4.1. long getFileSize() - Returns the size of the file pointed to
+by path.
+9.4.2. void putEntry(Entry entry) - Serializes the passed entry to
+the file. Be aware that each entry may contain another entry.
+9.4.3.	Entry getEntry() - Gets an entry from the file. If the file size is zero,
+return null.
+9.4.4. void remove() - Delete the file pointed to by path.
+The constructor and methods should not throw exceptions.
+
+
+Requirements:
+1.	A Path path field must be created in the FileBucket class.
+2.	The FileBucket class&#39;s no-argument constructor must be implemented in accordance with the task conditions.
+3.	The getFileSize method must return the size of the file pointed to by path.
+4.	The putEntry method must serialize the passed Entry object to the file pointed to by path. To get an OutputStream, use the Files.newOutputStream method.
+5.	The getEntry method must deserialize an Entry object from the file pointed to by path. To get an InputStream, use the Files.newInputStream method.
+6.	The remove method should delete the file pointed to by path using the Files.delete() method.
+
+
+Shortener (8)
+
+
+Add and implement a OurHashMapStorageStrategy class, using the Entry class from the
+previous subtask. The OurHashMapStorageStrategy class must implement
+the StorageStrategy interface.
+8.1. Add the following fields to the class:
+8.1.1. static final int DEFAULT_INITIAL_CAPACITY = 16;
+8.1.2. static final float DEFAULT_LOAD_FACTOR = 0.75f;
+8.1.3. Entry[] table = new Entry[DEFAULT_INITIAL_CAPACITY];
+8.1.4. int size;
+8.1.5. int threshold = (int) (DEFAULT_INITIAL_CAPACITY * DEFAULT_LOAD_FACTOR);
+8.1.6. float loadFactor = DEFAULT_LOAD_FACTOR;
+8.2. Implement the following helper methods in the class:
+8.2.1. int hash(Long k)
+8.2.2. int indexFor(int hash, int length)
+8.2.3. Entry getEntry(Long key)
+8.2.4. void resize(int newCapacity)
+8.2.5. void transfer(Entry[] newTable)
+8.2.6. void addEntry(int hash, Long key, String value, int bucketIndex)
+8.2.7. void createEntry(int hash, Long key, String value, int bucketIndex)
+8.3. Add the public methods required by the StorageStrategy interface.
+Don't use any additional fields. Don't implement any methods
+not specified in the task. If you have questions on how to implement a
+method or what it's supposed to do, you can always take a look at how the corresponding
+method works in HashMap.
+You can add testing of the new strategy to the Solution class's main method. Run the program
+and compare the execution time of the two strategies on the same number of elements.
+
+
+
+Shortener (7)
 
 
 Let's start implementing the second strategy: OurHashMapStorageStrategy. It won't
@@ -20,14 +88,6 @@ String values. Keep the default field visibility.
 toString(). Don't implement the remaining methods from the original Entry. We're
 writing the simplified version.
 
-
-Requirements:
-1.	The fields listed in the task conditions must be created in the Entry class.
-2.	The Entry class should have a constructor with four parameters (int, Long, String, Entry) that are used to initialize the corresponding fields of the class.
-3.	The getKey method should return the value of the key field.
-4.	The getValue method must return the value field.
-5.	The toString method should return a string formatted as follows: key + &quot;=&quot; + value.
-6.	The hashCode and equals methods must be correctly implemented, using the key and value fields for comparisons.
 
 
 Shortener (6)
@@ -97,54 +157,6 @@ come through this method!
 4.2.	Create an ExceptionHandler class.
 4.2.1.	Add a static log(Exception e) method, which will display
 a brief description of the exception.
-
-
-
-Shortener (part 3)
-
-
-Let's return to the Shortener class:
-3.1.	Add a Long lastId field to it. Initialize it to zero. This field will
-hold the identifier of the last string
-added to the repository.
-3.2.	Add a StorageStrategy storageStrategy field that will store the
-data storage strategy.
-3.3.	Add a constructor that accepts a StorageStrategy and initializes
-the corresponding field.
-3.4.	Implement the getId method. It should:
-3.4.1.	Check whether the passed value is in the repository. If it is, then return
-its key.
-3.4.2.	If the passed value is not in the repository, then:
-3.4.2.1.	Increase the value of lastId by one;
-3.4.2.2.	Add a new key-value pair (new value of lastId, passed string) to the
-repository;
-3.4.2.3.	Return the new value of lastId.
-3.5.	Implement the getString method. It should return the string for a given identifier
-(key).
-3.6.	Make sure you can call the getId and getString methods from different threads
-by adding the appropriate modifier to the method headers.
-
-
-
-Shortener (part 2)
-
-
-Shortener will support various data storage strategies
-(for strings and string identifiers). All these strategies will be inherited from the
-StorageStrategy interface. Read more about the Strategy pattern on Wikipedia.
-Our repository will rely on two concepts: key and value. The string identifier will be
-the key, while the string itself will be the value.
-
-2.1.	Add the StorageStrategy interface to the strategy package.
-2.2.	Add the following methods to the interface:
-2.2.1. boolean containsKey(Long key) - Returns true if the repository
-contains the passed key.
-2.2.2. boolean containsValue(String value) - Returns true if the repository
-contains the passed value.
-2.2.3. void put(Long key, String value) - Adds a new key-value pair to the
-repository.
-2.2.4.	Long getKey(String value) - Returns the key for the passed value.
-2.2.5.	String getValue(Long key) - Return the value for the passed key.
 
 
 
