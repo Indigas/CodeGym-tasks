@@ -1,5 +1,6 @@
 package com.codegym.task.task33.task3310;
 
+import com.codegym.task.task33.task3310.strategy.FileStorageStrategy;
 import com.codegym.task.task33.task3310.strategy.HashMapStorageStrategy;
 import com.codegym.task.task33.task3310.strategy.OurHashMapStorageStrategy;
 import com.codegym.task.task33.task3310.strategy.StorageStrategy;
@@ -57,8 +58,8 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        testStrategy(new HashMapStorageStrategy(), 10000L);
-        testStrategy(new OurHashMapStorageStrategy(), 10000L);
-
+       /* testStrategy(new HashMapStorageStrategy(), 10000L);
+        testStrategy(new OurHashMapStorageStrategy(), 10000L);*/
+        testStrategy(new FileStorageStrategy(), 10L);
     }
 }
