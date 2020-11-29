@@ -1,29 +1,167 @@
-taskKey="com.codegym.task.task28.task2810.big01"\n\nAggregator (part 1)
+taskKey="com.codegym.task.task28.task2810.big17"\n\nAggregator (part 17)
 
 
-It's time to work with information from the Internet a little. In this task, you'll be writing an aggregator for Java job posting.
-What do we need?
-There should be a list of websites we are searching for jobs.
-First, we'll use https://www.linkedin.com/jobs/. We'll add other job search sites later.
-These are the same site, just with different domains.
+Stuff you can do on your own (we won't test you on any of these items):
+1. Add a bazillion other job sites for aggregating job postings.
+You just need to create a strategy, and then add a provider for that strategy to the model.
+2. Sort all of the job postings. For example, you could sort them by their posting date or salary (you'll have to parse the date or salary from the HTML you receive).
+3. Create your own view. For example, you could make one using swing. Swap HtmlView with SwingView in the main method.
+You already know how to add libraries. Make it so the request comes from a swing form.
+4. Package the application into a WAR file, deploy Tomcat, and use it to deploy the application. Make it so the request comes from a browser.
 
-Where do we start our implementation? With the main method, of course! :)
-1. Create an Aggregator class with a main method.
 
-2. Create a model package, and create a Provider class inside it.
-This class represents a generalization of how job posting data is retrieved.
+Here's what you have achieved:
+1. You figured out the Strategy pattern,
+2. You figured out MVC, the most popular design pattern and one that is often asked about during interviews,
+3. You learned how to parse HTML,
+4. You gained experience using the jsoup library,
+5. You learned how to connect external libraries to IDEA,
+6. You gained experience using external libraries,
+7. You wrote a cool architecture,
+8. You know more and can do more,
+9. You saw how to break a task into subtasks,
+10. You moved one step closer to working as a Java programmer.
 
-3. Since the same script will be executed for each site, we'll use the Strategy pattern. Read about it online on Wikipedia.
-Create a Strategy interface in the model package.
-It will be responsible for fetching data from a website.
-
-4. Add a Strategy strategy field to the Provider class. Add a constructor with this parameter and an appropriate setter.
+Congratulations! I'm proud of you!
+You're my dream student!
 
 
 Requirements:
-1.	Create an Aggregator class with a main method.
-2.	Create a model package, and create a Provider class inside it.
-3.	Create a Strategy interface in the model package.
-4.	Add a Strategy strategy field to the Provider class. Add a constructor with this parameter and an appropriate setter.
+1.	Congratulations! The job aggregator is ready.
+
+
+Aggregator (part 16)
+
+
+You are doing great! You've done a lot of work! Now it will be easy for you to monitor job vacancies :)
+Aggregator currently uses only one strategy for collecting job postings (from Linkedin).
+
+1. Add a strategy for Indeed by analogy with LinkedinStrategy.
+Name the class IndeedStrategy, and implement the getJobPostings method.
+
+Here's an example URL for you:
+https://www.indeed.com/jobs?q=java+San+Francisco
+
+Example URL for a job posting:
+https://www.indeed.com/rc/clk?jk=1fb7bd807aa5377f&fccid=58c732f14833248a&vjs=3
+
+2. Create a provider for IndeedStrategy. Pass this provider to the Model's constructor.
+This is easy to do, because the model accepts multiple providers.
+The rest of the logic doesn't need to change. See how easy it is to extend the functionality?
+So much depends on using the right architecture.
+
+PLEASE NOTE THIS SPECIAL RULE FOR TESTING THIS TASK!
+As with Linkedin, the HTML code for a job posting on Indeed might change. To test this task,
+use this cached version of a page when implementing this task: http://codegym.cc/testdata/big28data2.html.
+You'll need this to test this task. Once you pass the test, check whether IndeedStrategy works on the actual site.
+
+
+
+Aggregator (part 15)
+
+
+In the HtmlView class, only the getUpdatedFileContents method is still empty. In this task, I'll describe what it should do.
+
+1. In HtmlView, create a protected Document getDocument() throws IOException method that
+parses the jobPostings.html file using jsoup. The file's encoding is UTF-8. Use the filePath field.
+
+2. Get an element that has the template class.
+Make a copy of this object. Then remove the "style" attribute and the "template" class from it.
+Use this element as a template to add a new row to the table of job postings.
+
+3. Remove all of the previously added job postings. The only class they have is "vacancy".
+There is one existing job posting in the backup.html file: Junior Java Developer.
+You need to remove all of the tr tags where class="vacancy".
+But don't remove the tr tag where class="vacancy template".
+Use the remove method.
+
+4. For each job posting, in a loop:
+4.1. Use the clone method to clone the tag template obtained in item 2.
+4.2. Get the element that has the "city" class. Write the city from the job posting in it.
+4.3. Get the element that has the "companyName" class. Write the company name from the job posting in it.
+4.4. Get the hyperlink element (<a> tag). Write the job title in it. Create a working hyperlink to the job posting in place of href="url".
+4.5. Add the outerHtml of the element that you wrote job data to,
+right before the template <tr class="vacancy template" style="display: none">.
+
+5. Return the entire document's HTML code.
+
+6. If an exception occurs, display its stack trace and return "Some exception occurred".
+
+7. Run the application and be sure that all of the job postings are written to the jobPostings.html file.
+
+
+
+Aggregator (part 14)
+
+
+There are still two empty methods in the HtmlView class.
+In this task, I'll describe what the updateFile method should do. And I'll also tell you how to debug it.
+
+It accepts the file's body as a String. You need to write it to the file located at the filePath path.
+You already know how to do this, so I won't mention those details here.
+
+Now, how to debug it.
+Set a breakpoint and run it in debug mode.
+Press Alt+F8 (Run -> Evaluate Expression).
+In the expression field (the top line), write System.out.println("AAA") and press Alt+V (the Evaluate button at the bottom).
+Go to the console. "AAA" is displayed there.
+
+You can use this window to see the current data and replace it with whatever data you need.
+You can do anything you want. For example, you can delete all of a map's elements, change the value of any variable,
+assign a new value, or set it to null.
+Set a breakpoint in Controller.onCitySelected, and run it in debug mode.
+Did it stop at that breakpoint? Great! Press Alt+F8 and enter cityName = "junior" in the field at the top;
+then press Alt+V and F9 to continue running the application.
+The list of job postings passed to HtmlView.update corresponds to the query "Java junior".
+Use the "Expression Evaluation" window. I think you'll need it in the next task.
+
+
+
+Aggregator (part 13)
+
+
+Check it out — there are two new files in the view package:
+jobPostings.html (you will write data here),
+backup.html (a copy of jobPostings.html for data recovery if the data in jobPostings.html is erased somehow).
+
+Hover over and right-click jobPostings.html in the project tree on the left. Then click "Open in Browser".
+This way you will see the result of your parsing.
+
+It's time to display the job postings.
+1. In the HtmlView class's update method, implement the following:
+1.1. create a new body for jobPostings.html, which will hold the job postings,
+1.2. write the updated body to the jobPostings.html file,
+1.3. All exceptions must be handled in this method. Display a stack trace if an exception occurs.
+
+2. To implement item 1, create two empty private methods:
+String getUpdatedFileContents(List<JobPosting>) and void updateFile(String),
+We will implement them in future tasks.
+
+3. To get to the jobPostings.html file, create a relative path to it.
+In the HtmlView class, create a private final String filePath field and assign it the relative path to jobPostings.html.
+The path must be relative to the project's root.
+Create the path dynamically using this.getClass().GetPackage() and the "/" separator.
+Hint: the path must begin with "./".
+
+
+
+Aggregator (part 12)
+
+
+To run the application, you need to emulate a user event:
+1. In the HtmlView class, create a public void emulateCitySelection() method.
+Let this method call the controller using the city "Odessa".
+
+2. To check whether everything is working, display something on the console in the HtmlView's update method, for example, the number of job postings.
+This is an indication that you can move on.
+
+3. To get started, you need to update Aggregator's main method.
+3.1. Create a view, model, and controller.
+3.2. Pass the controller to the view.
+3.3. Call the view's emulateCitySelection method.
+
+4. Run the application! Wait a few seconds to get the data.
+Did it work? Great! It works!
+
 
 
